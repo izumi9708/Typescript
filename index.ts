@@ -93,3 +93,79 @@ type Person2 = {
 type GroupByProperty = <T, K extends keyof T>(array: T[], property: K) => {[key:string]:T[]}
 
 
+const groupByProperty:GroupByProperty = <T,K extends keyof T>(array:T[],property:K) => {
+  // let obj:{[key:string]:T[]} = {};
+  // let obj:{[key:string]:T[]} = {};
+
+  // for(let i of array){
+  //   const key = i[property] as string;
+
+  //   if(!obj[key]){
+  //     obj[key] = [i];
+
+  //   }else {
+  //     obj[key] = [...obj[key],i]
+  //   }
+  // }
+
+  // return obj;
+
+  return array.reduce((result,obj) => {
+    const key = obj[property].toString();
+
+    if(typeof key === 'string'){
+      if(!result[key]){
+        result[key] = [obj];
+      }else {
+        result[key] = [...result[key],obj]
+      }
+      
+    }
+
+    return result;
+  },{})
+}
+
+const groupedByCity = groupByProperty<Person2,keyof Person2>(people2, 'city');
+console.log(groupedByCity);
+// 出力: { Tokyo: [{ name: 'Alice', age: 25, city: 'Tokyo' }, { name: 'Charlie', age: 20, city: 'Tokyo' }],Osaka: [{ name: 'Bob', age: 30, city: 'Osaka' }, { name: 'David', age: 35, city: 'Osaka' }] }
+
+
+
+
+// map」と「reduce」を使用して、与えられた数値配列の要素の平均値を計算する関数「calculateAverage」を実装してください。
+// 要件:
+// 「calculateAverage」は、数値の配列を受け取り、その要素の平均値を返す関数です。
+// 平均値は小数点以下2桁までの数値として計算します。
+// 数値配列が空の場合は、0を返します。
+
+type CalculaateAverage = (array:number[]) => number; 
+const calculateAverage:CalculaateAverage = (array) => {
+  return array.reduce((a,b) => a + b)/array.length;
+}
+
+const numbers = [1, 2, 3, 4, 5];
+const average = calculateAverage(numbers);
+// console.log(average)
+
+
+
+// 以下の関数findMaxを実装してください。この関数は、与えられた数値配列から最大値を見つけて返します。
+// 制約:
+// 入力配列は少なくとも1つの要素を持つことが保証されています。
+
+// この問題では組み込み関数Math.maxは使用しないでください。
+// 配列の要素には数値のみが含まれることが前提となります。
+
+type FindMax = (array:number[]) => number; 
+const findMax:FindMax = (array) => {
+  return array.reduce((a,b) => {
+    return a > b ? a : b ;
+  },0)
+}
+
+const numbers2 = [1, 5, 3, 2, 4];
+console.log(findMax(numbers2)); // 出力: 5
+
+const numbers3 = [10, 8, 6, 4, 2];
+console.log(findMax(numbers3)); // 出力: 10
