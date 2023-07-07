@@ -165,7 +165,48 @@ const findMax:FindMax = (array) => {
 }
 
 const numbers2 = [1, 5, 3, 2, 4];
-console.log(findMax(numbers2)); // 出力: 5
+// console.log(findMax(numbers2)); // 出力: 5
 
 const numbers3 = [10, 8, 6, 4, 2];
-console.log(findMax(numbers3)); // 出力: 10
+// console.log(findMax(numbers3)); // 出力: 10
+
+// 以下の要件を満たす関数を実装してください。
+// 関数名: removeFalsyValues
+// 入力: any[]
+// 出力: any[]
+// 要件:
+// 入力として与えられた配列から、Falsy (偽と評価される) の値を除外した配列を作成して返します。
+// Falsyとは、以下の値を指します: false, 0, '', null, undefined, NaN
+// 入力配列の要素の順序は維持される必要があります。
+
+type paramType = string | number | boolean | null | undefined;
+type RemoveFalsyValues = <T>(array:T[]) => T[]; 
+
+const removeFalsyValues:RemoveFalsyValues = (array) => {
+  return array.filter(val => val)
+}
+
+
+const input = [1, 0, false, '', null, undefined, NaN, 'hello'];
+const output = removeFalsyValues(input);
+// console.log(output);
+// 出力: [1, 'hello']
+
+
+
+// 配列の要素を指定した数値で乗算する関数multiplyArrayを実装してください。以下の要件を満たすように実装してください。
+// 関数名: multiplyArray
+// 入力: 数値の配列 array、乗算する数値 multiplier
+// 出力: 乗算された結果の数値配列
+// 要件:
+// 配列の各要素に対して指定された数値で乗算を行い、結果の数値配列を返します。
+// 入力配列の要素の順序は維持されます。
+// 入力配列や乗算する数値は任意の数値であり、配列の要素数や数値の範囲に制限はありません。
+
+const multiplier = (array:number[],multiple:number):number[] => {
+  return array.map(val => val * multiple);
+}
+
+const numbers4 = [2, 4, 6, 8, 10];
+const multiple = 3;
+// console.log(multiplier(numbers4,multiple))
