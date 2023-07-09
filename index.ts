@@ -210,3 +210,52 @@ const multiplier = (array:number[],multiple:number):number[] => {
 const numbers4 = [2, 4, 6, 8, 10];
 const multiple = 3;
 // console.log(multiplier(numbers4,multiple))
+
+
+// 以下の関数removeDuplicatesを実装してください。この関数は、与えられた配列から重複した要素を取り除いた新しい配列を返します。重複している要素は最初に現れたものを残し、後続の同じ要素は取り除かれます。
+// 入力配列の要素は任意の型Tとします。
+// 入力配列の要素の順序は維持される必要があります。
+
+type RemoveDuplicates = <T>(array:T[]) => T[];
+const removeDuplicates:RemoveDuplicates = (array) => {
+  return Array.from(new Set(array))
+}
+
+const numbers5 = [1, 2, 3, 2, 4, 1, 5];
+const fruits = ['apple', 'banana', 'orange', 'banana', 'apple'];
+// console.log(removeDuplicates(numbers5));
+// console.log(removeDuplicates(fruits));
+
+
+// mergeObjectsというジェネリックな関数を実装してください。この関数は、与えられたオブジェクトの配列をマージし、1つのオブジェクトに結合して返します。
+// 入力としてオブジェクトの配列が与えられます。
+// 各オブジェクトは同じ型を持つものとします。
+// オブジェクトのプロパティは、文字列型のキーを持ち、そのキーに対応する値は任意の型とします。
+// mergeObjects関数は、与えられたオブジェクトの配列をマージし、1つのオブジェクトに結合します。
+// マージの際、同じキーを持つプロパティの値は配列として結合されます。
+// マージ結果のオブジェクトを返します。
+
+type MergeObjects = <T extends {[key:string]:number|string|string[]}>(objects:T[]) => {[key:string]:string[]|number[]};
+
+const mergeObjects:MergeObjects = (objects) => {
+  return objects.reduce((a,b) => {
+    Object.keys(b).forEach(val => {
+      if(!a[val]) {
+        a[val] = [b[val]];
+
+        }else {
+          a[val] = [...a[val],b[val]]
+      }
+    })
+
+    return a;
+  },{});
+};
+
+const object1 = { id: 1, name: 'Alice', age: 25 };
+const object2 = { id: 2, name: 'Bob', hobbies: ['reading', 'cooking'] };
+const object3 = { id: 3, name: 'Charlie', age: 30 };
+
+const mergedObject = mergeObjects([object1, object2, object3]);
+// console.log(mergedObject);
+// 出力: { id: [1, 2, 3], name: ['Alice', 'Bob', 'Charlie'], age: [25, 30], hobbies: ['reading', 'cooking'] }
