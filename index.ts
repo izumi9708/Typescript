@@ -259,3 +259,54 @@ const object3 = { id: 3, name: 'Charlie', age: 30 };
 const mergedObject = mergeObjects([object1, object2, object3]);
 // console.log(mergedObject);
 // 出力: { id: [1, 2, 3], name: ['Alice', 'Bob', 'Charlie'], age: [25, 30], hobbies: ['reading', 'cooking'] }
+
+
+// 以下の関数filterByRangeを実装してください。この関数は、与えられた数値の配列から、指定された範囲内の数値のみをフィルタリングして返します。
+
+// 仕様:
+
+// 関数名: filterByRange
+// 入力: numbers: number[] (数値の配列), min: number (最小値), max: number (最大値)
+// 出力: number[] (フィルタリングされた数値の配列)
+// 数値配列numbers内の要素のうち、min以上max以下の範囲に該当する数値のみをフィルタリングします。
+// フィルタリングされた数値の配列を返します。元の配列numbersは変更しません。
+
+type FilterByRange = <T>(array:T[],min:T,max:T) => T[]; 
+
+const filterByRange:FilterByRange = (array,min,max) => {
+  return array.filter(val => (val >= min) && (val <= max))
+}
+
+
+const numbers6 = [1, 3, 5, 7, 9, 11];
+const filteredNumbers = filterByRange(numbers6, 3, 9);
+// console.log(filteredNumbers);
+// 出力: [3, 5, 7, 9]
+
+const moreNumbers = [10, 20, 30, 40, 50];
+const filteredMoreNumbers = filterByRange(moreNumbers, 15, 45);
+// console.log(filteredMoreNumbers);
+// 出力: [20, 30, 40]
+
+
+// 以下の条件を満たす関数 getUniqueValues を実装してください。
+
+// 関数 getUniqueValues は、与えられた配列内の重複する値を取り除き、ユニークな値の配列を返します。
+// ユニークな値の配列は元の配列の順序を保持します。
+// 入力配列には、文字列や数値などのさまざまなデータ型の要素が含まれることがあります。
+
+type GetUniqueValues = <T>(array:T[]) => T[] ;
+const getUniqueValues:GetUniqueValues = (array) => {
+  return Array.from(new Set(array))
+}
+
+const numbers7 = [1, 2, 3, 4, 3, 2, 1];
+const uniqueNumbers = getUniqueValues(numbers);
+// console.log(uniqueNumbers);
+// 出力: [1, 2, 3, 4]
+
+const fruits2 = ['apple', 'banana', 'orange', 'banana', 'apple'];
+const uniqueFruits = getUniqueValues(fruits);
+// console.log(uniqueFruits);
+// 出力: ['apple', 'banana', 'orange']
+
