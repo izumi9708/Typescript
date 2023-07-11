@@ -310,3 +310,75 @@ const uniqueFruits = getUniqueValues(fruits);
 // console.log(uniqueFruits);
 // 出力: ['apple', 'banana', 'orange']
 
+
+// 次の要件を満たす関数 groupByProperty を実装してください。
+
+// 要件
+// 関数名: groupByProperty
+// 入力: array (T[]型) - ジェネリックな配列
+// 入力として与えられた配列 array を指定されたプロパティ property に基づいてグループ化します。
+// グループ化された結果をオブジェクトとして返します。オブジェクトのキーは property の値となり、値は array 内のオブジェクトの配列となります。
+// property の値は文字列として扱われます。
+// 入力として与えられる配列 array および配列内のオブジェクトは、プロパティ property を持つものとします。
+
+
+interface Person {
+  name: string;
+  age: number;
+  city: string;
+}
+
+const people3: Person[] = [
+  { name: 'Alice', age: 25, city: 'Tokyo' },
+  { name: 'Bob', age: 30, city: 'Osaka' },
+  { name: 'Charlie', age: 20, city: 'Tokyo' },
+  { name: 'David', age: 35, city: 'Osaka' },
+];
+
+
+type GroupByProperty2<T,K extends keyof T> = (array:T[],property:K) => {[key:string]:T[]} ;
+const groupByProperty2:GroupByProperty2<Person,keyof Person> = (array,property) => {
+  return array.reduce((obj,arr) => {
+    if(!obj[arr[property]]){
+      obj[arr[property]] = [arr];
+
+    }else {
+      obj[arr[property]] = [...obj[arr[property]],arr]
+    }
+
+    return obj;
+  },{})
+}
+
+const groupedByCity2 = groupByProperty2(people3, 'city');
+// console.log(groupedByCity2);
+
+
+
+// User とジェネリック関数 filterByProperty を使って、与えられた配列から指定されたプロパティの値が一致する要素をフィルタリングする関数 filterByProperty を実装してください。
+// filterByProperty は、ジェネリック関数であり、T は要素の型を表します。
+// K はプロパティのキーの型を表します。
+// 関数は、与えられた配列 array を指定されたプロパティ property の値が value と一致する要素でフィルタリングします。
+// フィルタリングされた要素の配列を返します。
+
+interface User {
+  id: number;
+  name: string;
+  age: number;
+}
+
+const users: User[] = [
+  { id: 1, name: 'Alice', age: 25 },
+  { id: 2, name: 'Bob', age: 30 },
+  { id: 3, name: 'Charlie', age: 20 },
+  { id: 4, name: 'David', age: 35 },
+];
+
+type FilterByProperty2<T,K extends keyof T> = (array:T[],property:K,value:T[K]) => T[] ;
+
+const filterByProperty2:FilterByProperty = (array,property,value) => {
+  return array.filter(item => item[property] === value)
+}
+
+const filteredUsers = filterByProperty2(users, 'age', 30);
+// console.log(filteredUsers);
