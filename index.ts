@@ -382,3 +382,90 @@ const filterByProperty2:FilterByProperty = (array,property,value) => {
 
 const filteredUsers = filterByProperty2(users, 'age', 30);
 // console.log(filteredUsers);
+
+
+// 与えられた配列の要素をランダムに並び替える関数 shuffleArray を実装してください。
+// 要件:
+// shuffleArray 関数は、配列を受け取り、要素をランダムに並び替えた新しい配列を返します。
+// 元の配列は変更せず、新しい配列が返されることを確認してください。
+// 配列の要素は、ランダムな順序で並び替えられる必要があります。
+
+
+type ShuffleArray = <T>(array:T[]) => T[]; 
+
+const shuffleArray:ShuffleArray = (array) => {
+  let indexArray = [];
+  let shuffledArray = array.slice();
+
+  while(indexArray.length < shuffledArray.length){
+    const random = Math.floor(Math.random()* shuffledArray.length);
+
+    indexArray.push(random);
+    indexArray = Array.from(new Set(indexArray));
+  }
+
+  return indexArray.reduce((a,b) => {
+    a.push(shuffledArray[b])
+    return a
+  },[])
+}
+
+const numbers8 = [1, 2, 3, 4, 5];
+const shuffledNumbers = shuffleArray(numbers8);
+// console.log(shuffledNumbers); // ランダムな順序で並び替えられた配列が表示される
+
+
+const fruits3 = ['apple', 'banana', 'orange', 'kiwi'];
+const shuffledFruits = shuffleArray(fruits3);
+// console.log(shuffledFruits); // ランダムな順序で並び替えられた配列が表示される
+
+
+
+// 数値の配列を受け取り、重複する数値を削除した新しい配列を返す関数 removeDuplicates を実装してください。
+// 要件:
+// 入力される配列は任意の数値の集合であり、数値の重複が存在する場合があります。
+// 出力される配列は、重複する数値が削除されたものであり、元の配列と同じ順序を保持します。
+// 追加のデータ構造の使用は許可されていません。配列のメソッドを使用して実装してください。
+
+const removeDuplicates2 = (array:number[]):number[] => {
+  return Array.from(new Set(array))
+}
+
+const numbers9 = [1, 2, 3, 2, 4, 1, 5];
+const uniqueNumbers2 = removeDuplicates2(numbers9);
+// console.log(uniqueNumbers2);
+// 出力: [1, 2, 3, 4, 5]
+
+const otherNumbers = [10, 20, 30, 20, 40, 30, 50];
+const uniqueOtherNumbers = removeDuplicates2(otherNumbers);
+// console.log(uniqueOtherNumbers);
+// 出力: [10, 20, 30, 40, 50]
+
+
+
+// ジェネリック型を使用して、配列の各要素に対して与えられた変換関数を適用するマップ関数 mapArray を実装してください。以下の要件を満たすように関数を作成してください。
+
+// mapArray 関数は、array 引数と transform 引数を受け取ります。
+// array は任意の型 T の配列です。
+// transform は T 型の要素を引数に受け取り、任意の型 U の値を返す変換関数です。
+// mapArray 関数は、array の各要素に対して transform を適用し、変換後の値からなる新しい配列を返します。
+
+
+const numbers10 = [1, 2, 3, 4, 5];
+
+type MapArray = <T extends string | number>(array:T[],transform:(item:T) => number) => number[];
+
+const mapArray:MapArray = (array,transform) => {
+  return array.map(val => transform(val))
+}
+
+const doubledNumbers = mapArray(numbers10, (num) => num * 2);
+// console.log(doubledNumbers);
+// 出力: [2, 4, 6, 8, 10]
+
+const names = ['Alice', 'Bob', 'Charlie'];
+
+const nameLengths = mapArray(names, (name) => name.length);
+// console.log(nameLengths);
+// 出力: [5, 3, 7]
+
