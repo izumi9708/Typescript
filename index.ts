@@ -469,3 +469,71 @@ const nameLengths = mapArray(names, (name) => name.length);
 // console.log(nameLengths);
 // 出力: [5, 3, 7]
 
+
+// filterArray を実装してください。以下の仕様を満たすようにしてください。
+// 仕様:
+// filterArray は、与えられた配列 array の要素をフィルタリングして新しい配列を返します。
+// フィルタリングは、与えられた predicate 関数によって行われます。
+// predicate 関数は、要素を受け取り、真偽値を返す関数です。
+// predicate 関数が真を返す要素のみがフィルタリングされた配列に含まれます。
+
+// filter メソッドや他の組み込み関数を使用せずに、自身でフィルタリングのロジックを実装してください。
+
+type FilterArray = <T>(array:T[],func:(prop:T) => boolean) => T[];
+
+const filterArray:FilterArray = (array,func) => {
+  let result = [];
+
+  for(let i of array){
+    if(func(i))result.push(i)
+  }
+
+  return result;
+}
+
+
+const numbers11 = [1, 2, 3, 4, 5];
+const isEven = (num: number) => num % 2 === 0;
+
+const filteredNumbers2 = filterArray(numbers11, isEven);
+// console.log(filteredNumbers2);
+// 出力: [2, 4]
+
+const fruits4 = ['apple', 'banana', 'orange'];
+const isLong = (fruit: string) => fruit.length > 5;
+
+const filteredFruits2 = filterArray(fruits, isLong);
+// console.log(filteredFruits2);
+// 出力: ['banana', 'orange']
+
+
+
+// ユニオン型の要素を持つ配列が与えられたとき、各要素の型ごとにグループ化する groupByType という関数を実装してください。関数のシグネチャは以下の通りです。
+// 配列 array の各要素は、ユニオン型 T | null | undefined の形式を持ちます。
+// 関数は、配列 array の要素をそれぞれの型ごとにグループ化し、結果をオブジェクトとして返します。
+// オブジェクトのキーは、各要素の型を表し、値はその型に対応する要素の配列です。
+// null や undefined といった特殊な値は、それぞれ "null" や "undefined" というキーにグループ化されます。
+
+
+type GroupByType = <T>(array:T[]) => {[key:string]:T[]}
+const groupByType:GroupByType = (array) => {
+  return array.reduce((obj,item) => {
+    let type = typeof(item);
+   if(type == 'object' && item == null)type = null
+
+    if(!obj[type]){
+      obj[type] = [item];
+
+    }else {
+      obj[type] = [...obj[type],item]
+    }
+
+    return obj;
+  },{})
+};
+
+const array = [1, 'hello', null, undefined, 2, null, 'world'];
+const result = groupByType(array);
+// console.log(result);
+// 出力: { number: [1, 2], string: ['hello', 'world'], null: [null, null], undefined: [undefined] }
+
