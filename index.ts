@@ -615,3 +615,73 @@ const filteredMoreNumbers2 = filterGreaterThan(moreNumbers2, 25);
 // console.log(filteredMoreNumbers2);
 // 出力: [30, 40, 50]
 
+
+// filterByAge: Person 配列と最小年齢を受け取り、最小年齢以上の年齢を持つ人々の配列を返す関数を作成してください。
+// groupByCity: Person 配列を受け取り、都市ごとに人々をグループ化したオブジェクトを返す関数を作成してください。返されるオブジェクトのプロパティは都市名であり、値はその都市に住む人々の配列です。
+
+
+interface Person {
+  name: string;
+  age: number;
+  city: string;
+}
+
+const people4: Person[] = [
+  { name: 'Alice', age: 25, city: 'Tokyo' },
+  { name: 'Bob', age: 30, city: 'Osaka' },
+  { name: 'Charlie', age: 20, city: 'Tokyo' },
+  { name: 'David', age: 35, city: 'Osaka' },
+];
+
+type FilterByAge = <T extends Person>(array:T[],minAge:number) => T[] 
+const filterByAge:FilterByAge = (array,minAge) => {
+  return array.filter(item => item.age >= minAge)
+}
+
+type GroupByCity = <T extends Person>(array:T[]) => {[key:string]:T[]};
+const groupByCity:GroupByCity = (array) => {
+  return array.reduce((obj,item) => {
+    if(!obj[item.city]){
+      obj[item.city] = [item];
+
+    }else {
+      obj[item.city].push(item)
+    }
+    return obj
+  },{})
+}
+
+const filteredPeopl2 = filterByAge(people4, 30);
+// console.log(filteredPeopl2);
+// 出力: [{ name: 'Bob', age: 30, city: 'Osaka' }, { name: 'David', age: 35, city: 'Osaka' }]
+
+const groupedPeople = groupByCity(people);
+// console.log(groupedPeople);
+// 出力: { Tokyo: [{ name: 'Alice', age: 25, city: 'Tokyo' }, { name: 'Charlie', age: 20, city: 'Tokyo' }],
+//         Osaka: [{ name: 'Bob', age: 30, city: 'Osaka' }, { name: 'David', age: 35, city: 'Osaka' }] }
+
+
+
+// 以下の要件を満たす sumArray というジェネリック関数を実装してください：
+
+// sumArray 関数は、任意の型の配列を受け取り、その要素の総和を計算します。
+// 配列の要素は数値である必要があります。他の型の要素が含まれている場合は、コンパイルエラーを発生させてください。
+// 関数の型パラメータには適切な制約を設定してください。
+
+type SumArray<T extends number> = (array:T[]) => T;
+const sumArray:SumArray<number> = (array) => {
+  return array.reduce((a,b) => a + b,0)
+}
+
+const numbers17 = [1, 2, 3, 4, 5];
+const result1 = sumArray(numbers17);
+console.log(result1); // 出力: 15
+
+const numbers18 = [10, 20, 30, 40, 50];
+const result2 = sumArray(numbers18);
+console.log(result2); // 出力: 150
+
+const strings2 = ['apple', 'banana', 'cherry'];
+// const result3 = sumArray(strings2); // エラー: 文字列型の配列が渡されましたが、数値型の配列が必要です
+// console.log(result3)
+
