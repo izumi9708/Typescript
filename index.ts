@@ -685,3 +685,49 @@ const strings2 = ['apple', 'banana', 'cherry'];
 // const result3 = sumArray(strings2); // エラー: 文字列型の配列が渡されましたが、数値型の配列が必要です
 // console.log(result3)
 
+
+// 数値の配列を受け取り、配列内の数値の平均値を計算する関数 calculateAverage を作成してください。関数の型アノテーションを行い、適切な型制約を追加してください。
+
+// 以下の条件を満たすようにしてください：
+
+// 配列が空の場合は、null を返します。
+// 平均値は小数点以下まで計算されるようにします。
+
+type CalculateAverage2<T> = (array:T[]) => T | null;
+
+const calculateAverage2:CalculateAverage2<number> = (array) => {
+  const result = array.reduce((a,b) => {
+    return a + b
+  },0) / array.length;
+
+  return array.length === 0 ? null : result
+}
+
+const numbers15 = [1, 2, 3, 4, 5];
+const average2 = calculateAverage2(numbers15);
+// console.log(average2); // 出力: 3
+
+const emptyArray: number[] = [];
+const average3 = calculateAverage2(emptyArray);
+// console.log(average3); // 出力: null
+
+
+
+// 以下の要件を満たす型エイリアス FilterArray を定義してください：
+
+// FilterArray は、ジェネリックな型パラメータ T と、array パラメータを持ちます。
+// array パラメータは T 型の要素を持つ配列とします。
+// FilterArray は、array パラメータ内の要素をフィルタリングするための関数型です。
+// FilterArray の関数型は、ジェネリックな型パラメータ T を引数に取り、T 型の要素を受け取って真偽値を返します。
+
+type FilterArray2 = <T>(array:T[],func:(num:T) => boolean) => T[];
+const filterArray2:FilterArray2 = (array,func) => {
+  return array.filter(val => func(val))
+}
+
+const numbers16: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const isEven2 = (num: number) => num % 2 === 0;
+const isOdd = (num: number) => num % 2 !== 0;
+
+// console.log(filterArray2(numbers16,isEven2))
+// console.log(filterArray2(numbers16,isOdd))
