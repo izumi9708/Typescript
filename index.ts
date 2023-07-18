@@ -731,3 +731,63 @@ const isOdd = (num: number) => num % 2 !== 0;
 
 // console.log(filterArray2(numbers16,isEven2))
 // console.log(filterArray2(numbers16,isOdd))
+
+
+// 「型エイリアス ShuffleArray を作成し、与えられた配列をランダムにシャッフルする関数を作成してください。シャッフルには Math.random() を使用してください。」
+
+type ShuffleArray2 = <T>(array:T[]) => T[] ;
+const shuffleArray2:ShuffleArray2 = (array) => {
+  const result = array.slice();
+
+  for(let i = array.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+
+    [array[i],array[j]] = [array[j],array[i]]
+  }
+
+  return result;
+}
+
+const numbersArray: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const fruitsArray: string[] = ['apple', 'banana', 'orange', 'kiwi', 'strawberry'];
+
+// console.log(shuffleArray2(numbersArray))
+// console.log(shuffleArray2(fruitsArray))
+
+
+
+// Person というインターフェースを定義し、name（string型）、age（number型）、city（string型）という3つのプロパティを持つものとします。
+// people という配列を作成し、複数の Person オブジェクトを含めて初期化します。
+// GroupByProperty というジェネリック型を定義します。この型は、第1引数に T[]（T型の配列）、第2引数に K extends keyof T（T型のキー）を受け取り、オブジェクトを返します。
+// groupByProperty という関数を作成し、GroupByProperty 型を利用して、people 配列を city プロパティでグループ化してください。
+// グループ化された結果を console.log で出力してください。
+// 以上の要件を満たす TypeScript コードを記述してください。
+
+interface Person {
+  name:string;
+  age:number;
+  city:string;
+}
+
+const people5: Person[] = [
+  { name: 'Alice', age: 25, city: 'Tokyo' },
+  { name: 'Bob', age: 30, city: 'Osaka' },
+  { name: 'Charlie', age: 20, city: 'Tokyo' },
+  { name: 'David', age: 35, city: 'Osaka' },
+];
+
+type GroupByProperty3 = <T extends Person>(array:T[]) => {[key:string]:T[]};
+const groupByProperty3:GroupByProperty3 = (array) => {
+  return array.reduce((obj,item) => {
+    if(!obj[item.city]){
+      obj[item.city] = [item];
+
+    }else {
+      obj[item.city].push(item);
+    }
+
+    return obj
+  },{})
+}
+
+// console.log(groupByProperty3(people5));
