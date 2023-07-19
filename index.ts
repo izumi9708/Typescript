@@ -791,3 +791,45 @@ const groupByProperty3:GroupByProperty3 = (array) => {
 }
 
 // console.log(groupByProperty3(people5));
+
+
+// 以下の型エイリアス SumArray を完成させ、数値の配列を受け取り、配列内の数値の合計値を計算して返す関数 sumArray を作成してください。関数の型アノテーションを行い、適切な型制約を追加してください。
+
+// SumArray 型エイリアスは、ジェネリック型パラメータ T を受け取ります。T は数値の配列の要素の型を表します。
+// sumArray 関数は、T[] 型の引数 array を受け取り、数値の合計値を返します。
+// 配列が空の場合は、null を返します。
+// 合計値は小数点以下まで計算されるようにします。
+
+type SumArray2<T extends number> = (array:T[]) => T | null;
+const sumArray2:SumArray2<number> = (array) => {
+  return array.length === 0 ? null : array.reduce((a,b) => a + b,0)
+}
+
+const numbersArray2: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const result3 = sumArray2(numbersArray2);
+// console.log(result3); // 出力: 55
+
+const emptyArray2: number[] = [];
+const result4 = sumArray2(emptyArray2);
+// console.log(result4); // 出力: null
+
+
+// 以下の条件を満たす、reverseArray という関数を実装してください：
+
+// reverseArray 関数は、ジェネリックな型パラメータ T を持ちます。
+// 関数は、T[] 型の配列を受け取ります。
+// 関数は、受け取った配列の要素を逆順に並び替えた新しい配列を返します。
+
+
+type ReverseArray = <T>(array:T[]) => T[];
+const reverseArray:ReverseArray = (array) => {
+  return array.reverse();
+}
+
+const numbers19: number[] = [1, 2, 3, 4, 5];
+const reversedNumbers = reverseArray(numbers19);
+// console.log(reversedNumbers); // 出力: [5, 4, 3, 2, 1]
+
+const fruits6: string[] = ['apple', 'banana', 'orange'];
+const reversedFruits = reverseArray(fruits6);
+// console.log(reversedFruits); // 出力: ['orange', 'banana', 'apple']
