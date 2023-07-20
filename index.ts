@@ -833,3 +833,50 @@ const reversedNumbers = reverseArray(numbers19);
 const fruits6: string[] = ['apple', 'banana', 'orange'];
 const reversedFruits = reverseArray(fruits6);
 // console.log(reversedFruits); // 出力: ['orange', 'banana', 'apple']
+
+
+// 与えられた文字列の配列から、指定された文字列の長さと一致する文字列のみを抽出する関数 filterByLength を実装してください。関数の型アノテーションを行い、適切な型制約を追加してください。
+
+// 配列が空の場合は、空の配列を返します。
+// 指定された文字列の長さと一致する文字列がない場合は、空の配列を返します。
+// 関数の引数として指定する文字列の長さは、非負の整数とします。
+
+type FilterByLength = <T extends string>(array:T[],length:number) => T[];
+const filterByLength:FilterByLength = (array,length) => {
+  return array.filter(item => item.length === length)
+}
+
+const fruits7: string[] = ['apple', 'banana', 'kiwi', 'orange', 'grape'];
+const result5 = filterByLength(fruits7, 5);
+// console.log(result5); // 出力: ['apple', 'grape']
+
+const colors: string[] = ['red', 'blue', 'green', 'yellow'];
+const result6 = filterByLength(colors, 3);
+// console.log(result6); // 出力: ['red']
+
+
+
+// 以下の要件を満たす TypeScript のジェネリック型 GetLength を定義してください。
+
+// GetLength は、ジェネリック型 T を引数に取ります。
+// GetLength は、T 型が配列の場合は配列の要素数を、文字列の場合は文字列の長さを、それ以外の場合は never 型を返します。
+
+
+type ArrayType = number[];
+type StringType = string;
+type ObjectType = { name: string; age: number };
+
+type GetLength<T> = T extends Array<infer U> ? U : never;
+
+type Length1 = GetLength<ArrayType>; // Length1 の型は number (配列の要素数)
+type Length2 = GetLength<StringType>; // Length2 の型は number (文字列の長さ)
+type Length3 = GetLength<ObjectType>; // Length3 の型は never (オブジェクトは対象外)
+
+
+// FilterOut という条件型を定義してください。この条件型は、ジェネリック型 T の配列 array と、型 U を受け取り、array から U 型と一致する要素を取り除いた配列を返すものとします。ただし、T には配列以外の型も指定できるものとします。
+
+type FilterOut<T,U> = Exclude<T,U>[];
+
+// 使用例
+type Numbers = FilterOut<number | string, string>; // type Numbers = number[]
+type Strings = FilterOut<number | string, number>; // type Strings = string[]
