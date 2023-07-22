@@ -880,3 +880,75 @@ type FilterOut<T,U> = Exclude<T,U>[];
 // 使用例
 type Numbers = FilterOut<number | string, string>; // type Numbers = number[]
 type Strings = FilterOut<number | string, number>; // type Strings = string[]
+
+
+// T extends U ? X : Y という条件付き型を使用して、与えられた型がnumberかどうかを判定する型を作成してください。
+
+type IsNumber<T> = T extends number ? number : never;
+type Result = IsNumber<4>
+
+
+// T extends U ? X : Y という条件付き型を使用して、与えられた型が配列かどうかを判定する型を作成してください。
+type IsArray<T> = T extends Array<infer U> ? T : never;
+type Result2 = IsArray<[1,2,3,4]>
+
+// T extends U ? X : Y という条件付き型を使用して、与えられた型がオブジェクトかどうかを判定する型を作成してください。
+type IsObj<T> = T extends object ? T : never;
+type Result3 = IsObj<{name:string}>;
+
+
+// inferキーワードを使用して、与えられた配列型の要素の型を取得する型を作成してください。
+type KeyofArray<T> = T extends Array<infer U> ? U : never;
+type Result4 = KeyofArray<number[]>
+
+
+// inferキーワードを使用して、与えられたタプル型の最後の要素の型を取得する型を作成してください。
+const numbersTuple: [boolean, number, string] = [true, 2, '4'];
+
+type NumbersTuple = typeof numbersTuple;
+type IsLastTuple<T> = T extends [infer S,...infer U, infer K] ? S : never;
+type Result5 = IsLastTuple<NumbersTuple>
+
+
+// 以下の配列を受け取り、重複している要素を取り除いた新しい配列を返す関数 removeDuplicates を作成してください。ただし、元の配列の順序は保持してください。関数の型アノテーションも行ってください
+
+
+type RemoveDuplicates3 = <T>(array:T[]) => T[];
+const removeDuplicates3:RemoveDuplicates3 = (array) => {
+  return Array.from(new Set(array))
+}
+const numbers20 = [1, 2, 2, 3, 4, 4, 5];
+const result7 = removeDuplicates3(numbers20);
+// console.log(result7); // 出力: [1, 2, 3, 4, 5]
+
+const fruits8 = ['apple', 'banana', 'banana', 'orange', 'kiwi', 'kiwi'];
+const result8 = removeDuplicates3(fruits8);
+// console.log(result8); // 出力: ['apple', 'banana', 'orange', 'kiwi']
+
+
+
+// 以下の配列を受け取り、偶数の要素だけを取り出した新しい配列を返す関数 filterEvenNumbers2 を作成してください。関数の型アノテーションも行ってください。
+
+type FilterEvenNumbers = <T extends number>(array:T[]) => T[]; 
+const filterEvenNumbers:FilterEvenNumbers = (array) => {
+  return array.filter(val => val % 2 === 0)
+}
+const numbers21 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const result9 = filterEvenNumbers(numbers21);
+// console.log(result9); // 出力: [2, 4, 6, 8, 10]
+
+const numbers22 = [2, 4, 6, 8, 10];
+const result10 = filterEvenNumbers(numbers22);
+// console.log(result10); // 出力: [2, 4, 6, 8, 10]
+
+
+// 以下の配列を受け取り、要素を文字列として連結した新しい文字列を返す関数 concatenateStrings を作成してください。関数の型アノテーションも行ってください。
+
+type ConcatenateStrings<T> = (array:T[]) => T; 
+const concatenateStrings:ConcatenateStrings<string> = (array) => {
+  return array.join('');
+}
+
+const words = ['Hello', ' ', 'World', '!'];
+const result11 = concatenateStrings(words);
+// console.log(result11); // 出力: 'Hello World!'
