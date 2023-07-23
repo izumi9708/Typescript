@@ -952,3 +952,33 @@ const concatenateStrings:ConcatenateStrings<string> = (array) => {
 const words = ['Hello', ' ', 'World', '!'];
 const result11 = concatenateStrings(words);
 // console.log(result11); // 出力: 'Hello World!'
+
+// 以下のオブジェクトの配列を受け取り、各オブジェクト内の age プロパティの合計値を計算して返す関数 sumAges を作成してください。関数の型アノテーションも行ってください。
+
+interface Person3 {
+  name: string;
+  age: number;
+}
+
+const people6: Person3[] = [
+  { name: 'Alice', age: 25 },
+  { name: 'Bob', age: 30 },
+  { name: 'Charlie', age: 20 },
+  { name: 'David', age: 35 },
+];
+
+type KeyofPerson<T> = keyof T;
+type SumAges<T> = (array:T[]) => number;
+
+const sumAges:SumAges<Person3> = (array) => {
+  return array.map(val => val.age).reduce((a,b) => a + b,0)
+}
+
+const totalAge = sumAges(people6);
+// console.log(totalAge); // 出力: 110
+
+
+
+
+import index2 from './index2';
+index2();
