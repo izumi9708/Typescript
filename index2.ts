@@ -84,5 +84,76 @@ export default function index2(){
   
   type Result1 = IsUnion<number>; // false
   type Result2 = IsUnion<number | string>; // true
-  
+
+
+    // 以下の条件を満たす filterByValue という名前の関数を実装してください。
+
+  // filterByValue 関数は、2つのジェネリック型パラメータ T と U を受け取ります。
+  // T 型は配列であり、U 型は配列 T の要素のいずれかの型です。
+  // filterByValue 関数は、配列 T から指定した値 value に一致する要素だけを取り出して、新しい配列を返します。
+
+  type FilterByValue  = <T>(array:T[],elem:T) => T[];
+  const filterByValue:FilterByValue = (array,elem) => {
+    return array.filter(val => val === elem);
   }
+
+  const numbers: number[] = [1, 2, 3, 4, 5];
+  const filteredNumbers = filterByValue(numbers, 3);
+  // console.log(filteredNumbers); // 出力: [3]
+
+  const fruits: string[] = ['apple', 'banana', 'orange', 'banana', 'apple'];
+  const filteredFruits = filterByValue(fruits, 'banana');
+  // console.log(filteredFruits); // 出力: ['banana', 'banana']
+
+
+
+  // 以下の条件を満たすような、Reverse という条件型を実装してください。
+
+  // Reverse 型は、1つのジェネリック型パラメータ T を受け取ります。
+  // T 型は、配列の可能性があります。
+  // Reverse 型は、T 型が配列の場合はその要素の順序を逆にし、配列でない場合はそのまま返します。
+
+  type Reverse<T> = T extends Array<infer U> ? T[] : T;
+
+  type NumbersArray = [1, 2, 3, 4, 5];
+  type ReversedNumbers = Reverse<NumbersArray>; // ReversedNumbers の型は [5, 4, 3, 2, 1]
+
+  type SingleNumber = 10;
+  type ReversedSingleNumber = Reverse<SingleNumber>; // ReversedSingleNumber の型は 10
+
+
+
+  // PickPartial 型は、2つのジェネリック型パラメータ T と K を受け取ります。
+  // T 型はオブジェクト型であり、K 型は T 型のプロパティ名のいずれかの型として定義されているものです。
+  // PickPartial 型は、T 型から K 型に一致するプロパティだけを取り出し、新しいオブジェクト型を返しますが、そのプロパティはすべてオプショナルとして扱われます。
+
+  type Person = {
+    name: string;
+    age: number;
+    city: string;
+  };
+
+  type PickPartial<T,K extends keyof T> = Partial<Pick<T,K>>;
+  
+  type NameAndAge = PickPartial<Person, 'name' | 'age'>;
+  /*
+  NameAndAge の型は以下のようになります：
+  {
+    name?: string;
+    age?: number;
+  }
+  */
+  
+  type City = PickPartial<Person, 'city'>;
+  /*
+  City の型は以下のようになります：
+  {
+    city?: string;
+  }
+  */
+  
+
+
+
+  
+}
