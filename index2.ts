@@ -151,6 +151,263 @@ export default function index2(){
     city?: string;
   }
   */
+
+
+    // 以下の条件を満たすような、OmitProperty という条件型を実装してください。
+  // OmitProperty 型は、2つのジェネリック型パラメータ T と K を受け取ります。
+  // T 型はオブジェクト型であり、K 型は T 型のプロパティ名のいずれかの型として定義されているものです。
+  // OmitProperty 型は、T 型から K 型に一致するプロパティを除外した新しいオブジェクト型を返します。
+  // Omit という組み込み型を使用せずに、OmitProperty 型を実装してください。
+
+  type Person2 = {
+    name: string;
+    age: number;
+    city: string;
+  };
+  
+  type OmitProperty<T, K extends keyof T> = {
+    [U in keyof T as U extends K ? never : U]: T[U];
+  };
+  type Omitted = OmitProperty<Person2, 'age'>;
+  /*
+  Omitted の型は以下のようになります：
+  {
+    name: string;
+    city: string;
+  }
+  */
+  
+
+
+  // 以下の要件に従って、TypeScriptの型定義を行ってください。
+
+  // "Person"という名前の型を作成します。
+  // Person型は、以下のプロパティを持ちます。
+  // "name": 文字列型
+  // "age": 数値型
+  // "email": 文字列型またはundefined（オプショナル）
+  // "isAdmin": 真偽値型
+  // "Book"という名前の型を作成します。
+  // Book型は、以下のプロパティを持ちます。
+  // "title": 文字列型
+  // "author": Person型（上記で作成した型）
+  // "publishedYear": 数値型
+  // "ISBN": 文字列型またはnull（オプショナル）
+
+  type Person3 = {
+    name:string;
+    age:number;
+    email:string|undefined;
+    isAdmin:boolean;
+  }
+
+  type Book = {
+    title:string;
+    author:Person3;
+    publichedYear:number;
+    ISBN:string|null
+  }
+
+
+  // バブルソートは、隣接する要素の比較と交換を繰り返し、数列を昇順または降順にソートするシンプルなアルゴリズムです。以下のJavaScriptのコードをTypeScriptに変換してください。
+
+  function bubbleSort(arr:number[]):number[] {
+    const len = arr.length;
+    for (let i = 0; i < len; i++) {
+      for (let j = 0; j < len - 1; j++) {
+        if (arr[j] > arr[j + 1]) {
+          const temp = arr[j];
+          arr[j] = arr[j + 1];
+          arr[j + 1] = temp;
+        }
+      }
+    }
+    return arr;
+  }
+  
+  const unsortedArray = [64, 34, 25, 12, 22, 11, 90];
+  const sortedArray = bubbleSort(unsortedArray);
+  
+  
+
+  // 以下の要件に従って、TypeScriptのクラスと継承を使用して、動物（Animal）と鳥（Bird）の階層を表現してください。
+
+  // 基底クラスとしてAnimalクラスを作成します。
+  // Animalクラスは、次のプロパティとメソッドを持ちます。
+  // プロパティ: name（文字列型）、age（数値型）、isMammal（真偽値型）
+  // メソッド: makeSound() - 文字列を返す抽象メソッド
+  // BirdクラスをAnimalクラスを継承して作成します。
+  // Birdクラスは、Animalクラスのプロパティとメソッドに加えて、次のプロパティを持ちます。
+  // プロパティ: canFly（真偽値型）
+  // メソッド: makeSound() - "チュンチュン"という文字列を返す実装済みメソッド
+
+  class Animal {
+    public name:string;
+    public age:number;
+    public isMammal:boolean;
+
+    constructor(){
+      this.name = 'doc';
+      this.age = 22;
+      this.isMammal = false;
+    }
+
+    makeSound(str:string):string{
+      return str
+    }
+  }
+
+  class Bird extends Animal {
+    public canFly:boolean;
+
+    constructor(){
+      super();
+      this.canFly = true;
+    }
+
+    makeSound():string{
+      return 'チュンチュン';
+    }
+
+  } 
+
+  const bird = new Bird();
+  // console.log(bird.makeSound())
+
+
+
+  // LinkedListクラスに以下の機能を追加してください：
+
+  // printList: 連結リストの要素を順番にコンソールに表示するメソッドを追加してください。
+  // getLength: 連結リストの要素の数を返すメソッドを追加してください。
+  // deleteWithValue: 渡された値と一致する最初のノードを連結リストから削除するメソッドを追加してください。該当するノードがない場合は何もしなくて良いです。
+
+  // class Node {
+  //   public value: number;
+  //   public next: Node | null;
+  
+  //   constructor(value: number) {
+  //     this.value = value;
+  //     this.next = null;
+  //   }
+  // }
+  
+  // class LinkedList {
+  //   public head: Node | null;
+  
+  //   constructor() {
+  //     this.head = null;
+  //   }
+  
+  //   append(value: number) {
+  //     const newNode = new Node(value);
+  //     if (!this.head) {
+  //       this.head = newNode;
+  //       return;
+  //     }
+  //     let current = this.head;
+  //     while (current.next) {
+  //       current = current.next;
+  //     }
+  //     current.next = newNode;
+  //   }
+
+  //   printList():void{
+  //     // console.log(this.head.value)
+  //     // console.log(this.head.next.value)
+  //     // console.log(this.head.next.next.value)
+  //   }
+
+  //   deleteWithValue(num:number){
+  //     if(this.head.value === num){
+  //       delete this.head.value
+  //     }else {
+  //       if(this.head.next.value === num){
+  //         delete this.head.next.value
+
+  //       }else {
+  //         if(this.head.next.next.value === num){
+  //           delete this.head.next.next.value;
+  //         }else {
+
+  //         }
+  //       }
+  //     }
+
+  //     console.log(this.head)
+  //   }
+
+    
+  // }
+
+  
+  // const linkedList = new LinkedList();
+  // linkedList.append(10);
+  // linkedList.append(20);
+  // linkedList.append(30);
+
+  // linkedList.printList(); // 10, 20, 30
+  // // console.log(linkedList.getLength()); // 3
+
+  // console.log(linkedList.deleteWithValue(20));
+  // linkedList.printList(); // 10, 30
+  // // console.log(linkedList.getLength()); // 2
+
+  
+
+
+  // スタックは、データを一時的に保存するためのデータ構造で、後入れ先出し（LIFO: Last-In, First-Out）の特性を持ちます。整数値を格納するスタックを TypeScript で実装してください。
+
+  // 以下の機能を持つ Stack クラスを作成してください：
+
+  // push: スタックに整数値を追加します。
+  // pop: スタックから整数値を取り出し、その値を返します。スタックが空の場合は null を返します。
+  // peek: スタックの一番上にある整数値を取得しますが、スタックから削除はしません。スタックが空の場合は null を返します。
+  // isEmpty: スタックが空かどうかを真偽値で返します。
+  // printStack: スタックの内容を上から順にコンソールに表示します。
+
+
+  class Stack {
+    private stack: number[];
+  
+    constructor() {
+      this.stack = [];
+    }
+  
+    push(num:number){
+      this.stack.push(num);
+    }
+    pop(): number | null{
+      return this.stack.pop() || null;
+    }
+    peek():number|null{
+      return this.stack[0];
+    }
+    isEmpty(){
+      return this.stack.length === 0;
+    }
+    printStack(){
+      console.log(this.stack.join(','))
+    }
+  }
+  
+  // テスト
+  const stack = new Stack();
+  stack.push(10);
+  stack.push(20);
+  stack.push(30);
+  
+  // stack.printStack(); // 出力結果: 30, 20, 10
+  
+  console.log(stack.pop()); // 出力結果: 30
+  
+  console.log(stack.peek()); // 出力結果: 20
+  
+  console.log(stack.isEmpty()); // 出力結果: false
+  
+  stack.printStack(); // 出力結果: 20, 10
+
+
   
 
 
