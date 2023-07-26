@@ -409,6 +409,180 @@ export default function index2(){
 
 
   
+   // 以下の機能を持つ Queue クラスを作成してください：
+
+  // enqueue: キューに整数値を追加します。
+  // dequeue: キューから先頭の整数値を取り出し、その値を返します。キューが空の場合は null を返します。
+  // peek: キューの先頭にある整数値を取得しますが、キューから削除はしません。キューが空の場合は null を返します。
+  // isEmpty: キューが空かどうかを真偽値で返します。
+  // printQueue: キューの内容を先頭から順にコンソールに表示します。
+
+  class Queue {
+    private queue: number[];
+  
+    constructor() {
+      this.queue = [];
+    }
+
+    enqueue(num:number):void{
+      this.queue.push(num)
+    }
+
+    printQueue():void{
+      console.log(this.queue.join(','));
+    }
+
+    dequeue():number|null{
+      return this.queue.length > 0 ? this.queue[0] : null
+    }
+
+    peek():number|null{
+      return this.queue.length > 0 ? this.queue[0] : null
+    }
+
+    isEmpty():boolean{
+      return this.queue.length === 0
+    }
+
+  
+  }
+  
+  // テスト
+  const queue = new Queue();
+  queue.enqueue(10);
+  queue.enqueue(20);
+  queue.enqueue(30);
+  
+  // queue.printQueue(); // 出力結果: 10, 20, 30
+  
+  // console.log(queue.dequeue()); // 出力結果: 10
+  
+  // console.log(queue.peek()); // 出力結果: 20
+  
+  // console.log(queue.isEmpty()); // 出力結果: false
+  
+  // queue.printQueue(); // 出力結果: 20, 30
+
+
+
+  // 以下の要件を満たす関数 binarySearch を作成してください：
+  // 関数シグネチャ：function binarySearch(arr: number[], target: number): number
+  // 引数：
+  // arr: ソート済みの数値の配列（昇順または降順）。
+  // target: 検索対象の数値。
+  // 戻り値：
+  // targetが配列内に存在する場合、そのインデックスを返します（0以上の整数）。
+  // targetが配列内に存在しない場合、-1を返します。
+  
+  type BinarySerach<T> = (arr:T[],target:T) => T; 
+  const binarySearch:BinarySerach<number> = (arr, target) => {
+    return arr.findIndex(val => val === target);
+  }
+  
+  const arr = [2, 5, 8, 12, 16, 23, 38, 45, 56, 72, 91];
+  // console.log(binarySearch(arr, 23)); // 出力結果: 5
+  // console.log(binarySearch(arr, 38)); // 出力結果: 6
+  // console.log(binarySearch(arr, 72)); // 出力結果: 9
+  // console.log(binarySearch(arr, 100)); // 出力結果: -1
+
+
+
+
+  // 下の要件を満たす、TODOリストを TypeScript で実装してください。
+
+  // 要件:
+  
+  // Task クラスを作成し、タスクの内容を表現します。Task クラスは以下のプロパティを持ちます。
+  
+  // id: タスクの一意の識別子として、数値で表現します。
+  // content: タスクの内容を文字列で表現します。
+  // completed: タスクが完了したかどうかを真偽値で表現します。
+  // TodoList クラスを作成し、タスクの追加、削除、完了状態の変更などの操作を行います。TodoList クラスは以下のメソッドを持ちます。
+  
+  // addTask(content: string): void: 新しいタスクをリストに追加します。
+  // deleteTask(id: number): void: 指定されたIDのタスクをリストから削除します。
+  // completeTask(id: number): void: 指定されたIDのタスクを完了状態に変更します。
+  // showTasks(): void: 現在のタスクリストをコンソールに表示します。表示形式は自由ですが、タスクのID、内容、完了状態を分かりやすく表示してください。
+
+  interface Task {
+    id:number;
+    content:string;
+    completed:boolean
+  }
+
+  class Task implements Task {
+    public id:number;
+    public content:string;
+    public completed:boolean;
+
+  }
+
+  class TodoList extends Task {
+    public TaskList:Task[] = [];
+
+    constructor(){
+      super();
+    }
+
+    addTask(content:string):void{
+        const currentId = this.TaskList.length;
+
+        this.TaskList.push({id:currentId + 1,content:content,completed:false})
+    }
+
+    deleteTask(id:number):void{ 
+      const index = this.TaskList.findIndex(val => val.id == id);
+      this.TaskList = this.TaskList.filter((val,itemIndex) => itemIndex !== index)
+
+    }
+
+    completeTask(id:number):void{
+      this.TaskList.forEach(val => {
+        if(val.id == id){
+          val.completed = true;
+        }
+      })
+    }
+
+    showTasks():void{
+      for(let i of this.TaskList){
+        console.log(i.content,i.completed)
+      }
+    }
+
+  }
+
+
+  const todoList = new TodoList();
+
+  todoList.addTask("Buy groceries");
+  todoList.addTask("Clean the house");
+  todoList.addTask("Do laundry");
+
+  todoList.deleteTask(1);
+
+  todoList.completeTask(2)
+
+  // todoList.showTasks();
+  // 出力結果:
+  // [1] Buy groceries (未完了)
+  // [2] Clean the house (未完了)
+  // [3] Do laundry (未完了)
+
+
+  // todoList.showTasks();
+  // 出力結果:
+  // [1] Buy groceries (未完了)
+  // [2] Clean the house (完了)
+  // [3] Do laundry (未完了)
+
+  todoList.deleteTask(1);
+
+  // todoList.showTasks();
+  // 出力結果:
+  // [2] Clean the house (完了)
+  // [3] Do laundry (未完了)
+
 
 
 
