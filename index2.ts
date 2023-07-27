@@ -584,6 +584,93 @@ export default function index2(){
   // [3] Do laundry (未完了)
 
 
+    // 与えられた配列から重複している要素を削除する関数 removeDuplicates を TypeScript で実装してください。
+  // 関数シグネチャ：function removeDuplicates(arr: any[]): any[]
+  // 引数：
+  // arr: 重複要素を含む任意の型の配列。
+  // 戻り値：
+  // 重複要素が削除された配列を返します。元の配列の順序を保持して新しい配列を作成してください。
+
+  type RemoveDuplicates = <T>(arr:T[]) => T[]; 
+  const removeDuplicates:RemoveDuplicates = (arr) => {
+    return Array.from(new Set(arr))
+  }
+
+  const arrWithDuplicates = [1, 2, 2, 3, 4, 4, 5];
+  const arrWithoutDuplicates = removeDuplicates(arrWithDuplicates);
+  // console.log(arrWithoutDuplicates); // 出力結果: [1, 2, 3, 4, 5]
+
+  const strArrWithDuplicates = ["apple", "orange", "orange", "banana", "apple"];
+  const strArrWithoutDuplicates = removeDuplicates(strArrWithDuplicates);
+  // console.log(strArrWithoutDuplicates); // 出力結果: ["apple", "orange", "banana"]
+
+
+
+  // 与えられたオブジェクトから指定されたキーのみを抽出する関数 pick を TypeScript で実装してください。  
+  // 引数：
+  // obj: オブジェクト型 T。
+  // keys: obj から抽出したいキー名の配列 (K 型)。
+  // 戻り値：
+  // オブジェクト obj から指定されたキーのみを持つ新しいオブジェクトを返します。戻り値の型は Pick<T, K> となります。
+
+
+  // const obj = { name: "Alice", age: 30, email: "alice@example.com" };
+  // type Obj = {
+  //   name :string;
+  //   age  : number;
+  //   email : string;
+  // }
+
+  // type Picks<T, K extends string> = (obj: T, keys: K[]) => Pick<T, K>;
+
+  // const pick: Picks<Obj, string> = (obj, keys) => {
+  //   return keys.reduce((newObj, item) => {
+  //     if (obj[item]) {
+  //       newObj[item] = obj[item];
+  //     }
+  //     return newObj;
+  //   }, {});
+  // }
+  
+  // const pickedObj = pick(obj, ["name", "email"]);
+  // console.log(pickedObj); // 出力結果: { name: "Alice", email: "alice@example.com" }
+
+
+
+  // 以下の要件を満たすクラスを作成してください。
+
+  // クラス名は Rectangle とします。
+  // コンストラクタは2つの引数を受け取ります。
+  // 引数1: width（長方形の幅を表す数値）
+  // 引数2: height（長方形の高さを表す数値）
+  // クラスには以下の2つのメソッドを追加してください。
+  // getArea(): 長方形の面積を計算して返します。
+  // getPerimeter(): 長方形の周囲の長さを計算して返します。
+
+  class Rectangle {
+    public width:number;
+    public height:number;
+
+    constructor(width,height){
+      this.width = width;
+      this.height = height;
+    }
+
+    getArea():number{
+      return this.width * this.height;
+    }
+    getPerimeter():number{
+      return ((this.width * 2) + (this.height * 2) )
+    }
+  }
+
+  const rectangle = new Rectangle(5, 10);
+  // console.log(rectangle.getArea()); // 出力結果: 50
+  // console.log(rectangle.getPerimeter()); // 出力結果: 30
+
+
+
+
 
 
   
