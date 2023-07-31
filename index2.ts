@@ -669,6 +669,68 @@ export default function index2(){
   // console.log(rectangle.getPerimeter()); // 出力結果: 30
 
 
+  // ジェネリック型を使用して、配列の各要素に対して与えられた変換関数を適用するマップ関数 mapArray を実装してください。以下の要件を満たすように関数を作成してください。
+
+// mapArray 関数は、array 引数と transform 引数を受け取ります。
+// array は任意の型 T の配列です。
+// transform は T 型の要素を引数に受け取り、任意の型 U の値を返す変換関数です。
+// mapArray 関数は、array の各要素に対して transform を適用し、変換後の値からなる新しい配列を返します。
+
+
+const numbers10 = [1, 2, 3, 4, 5];
+
+type MapArray = <T extends string | number>(array:T[],transform:(item:T) => number) => number[];
+
+const mapArray:MapArray = (array,transform) => {
+  return array.map(val => transform(val))
+}
+
+const doubledNumbers = mapArray(numbers10, (num) => num * 2);
+// console.log(doubledNumbers);
+// 出力: [2, 4, 6, 8, 10]
+
+const names = ['Alice', 'Bob', 'Charlie'];
+
+const nameLengths = mapArray(names, (name) => name.length);
+// console.log(nameLengths);
+// 出力: [5, 3, 7]
+
+
+// filterArray を実装してください。以下の仕様を満たすようにしてください。
+// 仕様:
+// filterArray は、与えられた配列 array の要素をフィルタリングして新しい配列を返します。
+// フィルタリングは、与えられた predicate 関数によって行われます。
+// predicate 関数は、要素を受け取り、真偽値を返す関数です。
+// predicate 関数が真を返す要素のみがフィルタリングされた配列に含まれます。
+
+// filter メソッドや他の組み込み関数を使用せずに、自身でフィルタリングのロジックを実装してください。
+
+type FilterArray = <T>(array:T[],func:(prop:T) => boolean) => T[];
+
+const filterArray:FilterArray = (array,func) => {
+  let result = [];
+
+  for(let i of array){
+    if(func(i))result.push(i)
+  }
+
+  return result;
+}
+
+
+const numbers11 = [1, 2, 3, 4, 5];
+const isEven = (num: number) => num % 2 === 0;
+
+const filteredNumbers2 = filterArray(numbers11, isEven);
+// console.log(filteredNumbers2);
+// 出力: [2, 4]
+
+const fruits4 = ['apple', 'banana', 'orange'];
+const isLong = (fruit: string) => fruit.length > 5;
+
+const filteredFruits2 = filterArray(fruits, isLong);
+// console.log(filteredFruits2);
+// 出力: ['banana', 'orange']
 
 
 
