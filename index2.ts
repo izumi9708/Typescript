@@ -734,6 +734,60 @@ const filteredFruits2 = filterArray(fruits, isLong);
 
 
 
+// 文字列の配列を受け取り、各文字列の先頭を大文字に変換した新しい配列を返す関数 capitalizeFirstLetter を実装してください。
+// 要件:
+// capitalizeFirstLetter はジェネリクス関数として実装してください。
+// 大文字変換は英語のみを対象とし、非英語文字には影響を与えません。
+// 元の配列は変更されず、新しい配列を返すようにしてください。
+
+type CapitalizeFirstLetter<T> = (array: T[]) => T[];
+
+const capitalizeFirstLetter: CapitalizeFirstLetter<string> = (array) => {
+  return array.map(val => {
+    return val.charAt(0).toUpperCase() + val.slice(1);
+  })
+}
+
+
+const strings = ['apple', 'banana', 'cherry'];
+const capitalizedStrings = capitalizeFirstLetter(strings);
+// console.log(capitalizedStrings);
+// 出力: ['Apple', 'Banana', 'Cherry']
+
+const numbers12 = ['one', 'two', 'three'];
+const capitalizedNumbers = capitalizeFirstLetter(numbers12);
+// console.log(capitalizedNumbers);
+// 出力: ['One', 'Two', 'Three']
+
+
+
+// ジェネリック型と条件付き型を使用して、与えられた配列から特定の要素を抽出する関数 filterByValue を実装してください。
+// 要件:
+// filterByValue 関数は、ジェネリック型 T を受け取ります。
+// filterByValue 関数は、2つの引数を取ります: array (T[]型) と value (T型)。
+// array は対象の配列であり、value は抽出したい要素の値です。
+// filterByValue 関数は、array 内の要素の中から value と等しい要素だけを抽出し、新しい配列として返します。
+// 返される配列の要素の型は、元の配列と同じ型となります。
+// array 内に value と等しい要素が存在しない場合、空の配列を返します。
+
+
+type FilterByValue2 = <T>(array:T[],value:T) => T[];
+const filterByValue2:FilterByValue = (array,value) => {
+  return array.filter(item => item === value)
+}
+
+const numbers13 = [1, 2, 3, 4, 5];
+const filteredNumbers3 = filterByValue(numbers13, 3);
+// console.log(filteredNumbers3);
+// 出力: [3]
+
+const fruits5 = ['apple', 'banana', 'orange', 'banana', 'apple'];
+const filteredFruits3 = filterByValue(fruits5, 'banana');
+// console.log(filteredFruits);
+// 出力: ['banana', 'banana']
+
+
+
 
   
 }
