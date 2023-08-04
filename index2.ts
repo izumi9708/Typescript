@@ -786,6 +786,60 @@ const filteredFruits3 = filterByValue(fruits5, 'banana');
 // console.log(filteredFruits);
 // 出力: ['banana', 'banana']
 
+  // 以下の条件を満たすような、OmitProperty という条件型を実装してください。
+  // OmitProperty 型は、2つのジェネリック型パラメータ T と K を受け取ります。
+  // T 型はオブジェクト型であり、K 型は T 型のプロパティ名のいずれかの型として定義されているものです。
+  // OmitProperty 型は、T 型から K 型に一致するプロパティを除外した新しいオブジェクト型を返します。
+  // Omit という組み込み型を使用せずに、OmitProperty 型を実装してください。
+
+  type Person6 = {
+    name: string;
+    age: number;
+    city: string;
+  };
+  
+  type OmitProperty2<T, K extends keyof T> = {
+    [U in keyof T as U extends K ? never : U]: T[U];
+  };
+  type Omitted2 = OmitProperty2<Person6, 'age'>;
+  /*
+  Omitted の型は以下のようになります：
+  {
+    name: string;
+    city: string;
+  }
+  */
+  
+
+
+  // 以下の要件に従って、TypeScriptの型定義を行ってください。
+
+  // "Person"という名前の型を作成します。
+  // Person型は、以下のプロパティを持ちます。
+  // "name": 文字列型
+  // "age": 数値型
+  // "email": 文字列型またはundefined（オプショナル）
+  // "isAdmin": 真偽値型
+  // "Book"という名前の型を作成します。
+  // Book型は、以下のプロパティを持ちます。
+  // "title": 文字列型
+  // "author": Person型（上記で作成した型）
+  // "publishedYear": 数値型
+  // "ISBN": 文字列型またはnull（オプショナル）
+
+  type Person5 = {
+    name:string;
+    age:number;
+    email:string|undefined;
+    isAdmin:boolean;
+  }
+
+  type Book2 = {
+    title:string;
+    author:Person5;
+    publichedYear:number;
+    ISBN:string|null
+  }
 
 
 
